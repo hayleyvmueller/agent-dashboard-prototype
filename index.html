@@ -539,22 +539,25 @@
 
 <!-- MODAL: Spotlight Listings for Teams (step 1 "Get started") -->
 <div class="modal-overlay hidden" id="modal-spotlight" onclick="if(event.target===this)closeModal('modal-spotlight')">
-  <div class="modal-box">
-    <div class="modal-hdr">
+  <div class="modal-box" style="align-items: flex-end;">
+    <img class="modal-close" src="https://www.figma.com/api/mcp/asset/afadb729-143b-4df3-8fd6-43383d39699d" alt="Close" onclick="closeModal('modal-spotlight')">
+    <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 24px;">
+      <img src="https://www.figma.com/api/mcp/asset/5214ac3c-44f0-4b0b-be50-a883b19fa588" alt="Spotlight Listings" style="width: 183px; height: 143px; display: block;">
       <div class="modal-title">Spotlight Listings for Teams</div>
-      <img class="modal-close" src="https://www.figma.com/api/mcp/asset/9a820629-9e40-482e-9ed9-98b306dc55d7" alt="Close" onclick="closeModal('modal-spotlight')">
     </div>
-    <img class="modal-illus" src="https://www.figma.com/api/mcp/asset/c2b30409-90e3-4724-bc74-f67b207bae29" alt="Spotlight Listings">
-    <div class="modal-body">
-      Help your team stand out by promoting listings directly on realtor.com®. Spotlight Listings gives your agents a powerful tool to showcase properties and build their brand with every home they sell.
+    <div class="modal-body" style="width: 100%;">
+      Win more business with premium property placement. Your team has access to Spotlight Listings to help your brand stand out and provide sellers with the data they need.
     </div>
-    <ul class="modal-bullets">
-      <li><b>More visibility</b> — Your listings appear prominently in search results, reaching more qualified buyers.</li>
-      <li><b>Branded promotion</b> — Every spotlight features your agent's photo and contact information.</li>
-      <li><b>Performance insight</b> — Track views, saves, and lead activity for each promoted listing.</li>
-      <li><b>No extra setup</b> — Spotlight Listings works seamlessly with your existing team workflow.</li>
-    </ul>
-    <span class="modal-dl-link">Download the listing presentation</span>
+    <div style="width: 100%;">
+      <ul style="list-style: disc; padding-left: 24px; margin: 0; display: flex; flex-direction: column; gap: 4px; font-family: 'Rubik', sans-serif; font-size: 16px; line-height: 24px; color: #616f86;">
+        <li><b style="color: #181c24; font-weight: 700;">Maximum visibility</b> in top spots on Realtor.com</li>
+        <li><b style="color: #181c24; font-weight: 700;">Branded promotion</b> that highlights your team's expertise</li>
+        <li><b style="color: #181c24; font-weight: 700;">Actionable insight</b> to prove your value to sellers</li>
+        <li><b style="color: #181c24; font-weight: 700;">No extra setup</b> - promotions are managed by your team. Reach out to them to learn about promoting your listing</li>
+      </ul>
+      <p class="modal-body" style="margin-top: 16px;">Download our professional listing presentation to show potential clients exactly how you'll sell their home.</p>
+    </div>
+    <span class="modal-dl-link" style="width: 100%;">Download the listing presentation</span>
     <div class="modal-btns">
       <button class="fill-btn" onclick="closeModal('modal-spotlight')">Go to listings</button>
     </div>
