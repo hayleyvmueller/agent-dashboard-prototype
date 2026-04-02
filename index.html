@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Agent Dashboard – realtor.com for Professionals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f5f5f5; min-width: 1440px; font-family: 'Roboto', sans-serif; }
+
+    /* TOP HAT */
+    .tophat { height: 30px; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+    .tophat a { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 12px; color: rgba(255,255,255,0.8); text-decoration: none; }
+    .tophat .sep { color: rgba(255,255,255,0.4); margin: 0 8px; font-size: 12px; }
+    .tophat-links { display: flex; align-items: center; }
+    .tophat-right { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 12px; color: rgba(255,255,255,0.8); }
+
+    /* MAIN HEADER */
+    .main-header { height: 68px; background: white; border-top: 4px solid #6677d0; border-bottom: 1px solid rgba(0,0,0,0.2); display: flex; align-items: center; padding: 0 23px 0 10px; }
+    .logo img { height: 63px; width: auto; }
+    .logo { flex: 1; }
+    .profile-area { display: flex; align-items: center; gap: 8px; }
+    .welcome-block { text-align: right; }
+    .welcome-block .w1 { display: block; font-size: 14px; font-weight: 300; color: black; opacity: 0.9; }
+    .welcome-block .w2 { display: block; font-size: 14px; font-weight: 400; color: black; opacity: 0.9; margin-top: 4px; }
+    .avatar-group { display: flex; }
+    .avatar-photo { width: 40px; height: 40px; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); display: block; }
+    .avatar-arrow { width: 20px; height: 40px; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 11px; color: #666; }
+
+    /* LAYOUT */
+    .page-wrap { display: flex; }
+
+    /* SIDEBAR */
+    .sidebar { width: 256px; background: white; flex-shrink: 0; padding-top: 8px; min-height: calc(100vh - 98px); }
+    .nav-item { height: 56px; display: flex; align-items: center; padding: 0 24px; cursor: pointer; position: relative; justify-content: space-between; }
+    .nav-home { font-family: 'Helvetica', sans-serif; font-size: 16px; color: #364bc4; }
+    .nav-label { font-size: 16px; font-weight: 400; color: black; opacity: 0.9; }
+    .nav-divider { height: 1px; background: rgba(0,0,0,0.1); margin: 0 0; }
+    .red-dot { width: 10px; height: 10px; background: #d92228; border-radius: 50%; border: 1px solid white; position: absolute; right: 46px; }
+    .nav-chev { font-size: 13px; color: black; opacity: 0.8; }
+
+    /* MAIN CONTENT */
+    .main { width: 1112px; padding: 30px 0 40px 32px; display: flex; flex-direction: column; gap: 24px; flex-shrink: 0; }
+
+    /* ONBOARDING CARD */
+    .onboarding { background: white; border-radius: 16px; padding: 40px; }
+    .ob-title { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 24px; line-height: 32px; color: #181c24; }
+    .ob-sub { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #616f86; margin-top: 8px; }
+    .ob-item { display: flex; align-items: center; gap: 24px; padding: 20px 0; }
+    .step-num { width: 40px; height: 40px; background: #dee3fa; border-radius: 50px; display: flex; align-items: center; justify-content: center; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 18px; color: #1a1816; flex-shrink: 0; margin: 0 4px; }
+    .ob-body { flex: 1; }
+    .ob-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .ob-item-title { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; color: #1a1816; }
+    .new-pill { background: #4052a2; color: white; font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.25px; padding: 4px 8px; border-radius: 100px; }
+    .ob-desc { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #181c24; }
+    .outline-btn { border: 2px solid #4052a2; color: #4052a2; background: white; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; padding: 16px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .fill-btn { background: #4052a2; color: white; border: none; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; padding: 16px 24px; border-radius: 8px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+
+    /* ROWS */
+    .row { display: flex; gap: 24px; }
+    .row-31 { display: flex; gap: 31px; }
+
+    /* FOLLOW-UPS */
+    .follow-ups { flex: 1; height: 336px; background: rgba(255,255,255,0.81); border-radius: 2px; position: relative; overflow: hidden; }
+    .fu-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px 0; }
+    .fu-hdr-title { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 20px; line-height: 32px; color: black; }
+    .fu-more { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 14px; color: black; }
+    .fu-card { background: white; border-radius: 3px; box-shadow: 0 3px 8px rgba(112,120,135,0.25); margin: 8px 28px 0; padding: 16px 15px 12px; position: relative; }
+    .fu-top-row { display: flex; align-items: flex-start; gap: 12px; }
+    .init-av { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.6px; text-transform: uppercase; flex-shrink: 0; }
+    .fu-person-name { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 20px; line-height: 32px; color: black; opacity: 0.9; }
+    .fu-inquiry { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 20px; line-height: 32px; color: black; opacity: 0.9; }
+    .fu-ts { position: absolute; top: 16px; right: 48px; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 400; color: black; opacity: 0.9; }
+    .fu-x { position: absolute; top: 50px; right: 16px; width: 20px; height: 20px; cursor: pointer; opacity: 0.6; }
+    .fu-contacts { display: flex; gap: 20px; margin-top: 8px; padding-left: 52px; }
+    .fu-contact { display: flex; align-items: center; gap: 6px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 16px; line-height: 26px; color: black; opacity: 0.9; }
+    .fu-contact-icon { font-size: 16px; }
+    .fu-bottom-band { position: absolute; bottom: 0; left: 28px; right: 28px; height: 64px; background: rgba(0,0,0,0.02); }
+
+    /* RECENT LEADS */
+    .recent-leads { width: 304px; height: 336px; background: white; border-radius: 2px; position: relative; overflow: hidden; flex-shrink: 0; }
+    .rl-photo { width: 100%; height: 96px; object-fit: cover; display: block; }
+    .rl-overlay { position: absolute; top: 0; left: 0; right: 0; height: 96px; background: linear-gradient(to bottom, transparent 23%, rgba(0,0,0,0.3) 76%); pointer-events: none; }
+    .rl-title { position: absolute; top: 8px; left: 8px; font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 20px; line-height: 32px; color: white; }
+    .rl-time { position: absolute; top: 5px; right: 52px; font-family: 'Roboto', sans-serif; font-size: 14px; color: white; opacity: 0.9; }
+    .rl-new { position: absolute; top: 19px; right: 8px; background: #57b610; padding: 1px 3px; font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 14px; color: white; line-height: 14px; }
+    .rl-av-wrap { position: absolute; top: calc(50% - 60px); left: 50%; transform: translateX(-50%); }
+    .rl-av { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: white; font-family: 'Roboto', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.6px; }
+    .rl-info { position: absolute; top: 34%; bottom: 24%; left: 17%; right: 17%; text-align: center; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+    .rl-name { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 20px; line-height: 32px; color: black; opacity: 0.9; }
+    .rl-email { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 14px; line-height: 23px; color: black; opacity: 0.9; }
+    .rl-addr { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 14px; line-height: 23px; color: black; opacity: 0.9; }
+    .rl-price { font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 16px; line-height: 26px; color: black; opacity: 0.9; }
+    .rl-source { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 14px; line-height: 23px; color: black; opacity: 0.54; }
+    .rl-arrows { position: absolute; top: 61%; bottom: 32%; left: 4px; right: 4px; display: flex; justify-content: space-between; align-items: center; }
+    .rl-arr { font-size: 18px; color: black; opacity: 0.4; cursor: pointer; }
+    .rl-view-btn { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); background: white; border: 1px solid rgba(0,0,0,0.15); border-radius: 2px; padding: 7px 20px; font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 16px; color: black; opacity: 0.9; cursor: pointer; white-space: nowrap; }
+    .rl-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
+    .rl-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.2); }
+    .rl-dot.on { background: rgba(0,0,0,0.6); }
+
+    /* WIDGET SHARED */
+    .w-hdr { height: 56px; display: flex; align-items: center; padding: 0 16px; }
+    .w-hdr-title { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 20px; color: black; opacity: 0.9; }
+    .w-hdr-sub { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 14px; color: black; opacity: 0.54; margin-left: auto; }
+    .w-footer { height: 50px; display: flex; align-items: center; padding: 0 16px; border-top: 1px solid rgba(0,0,0,0.04); }
+    .w-link { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 16px; line-height: 26px; color: #364bc4; }
+
+    /* LEAD PERF */
+    .lead-perf { width: 312px; height: 336px; background: white; border-radius: 2px; overflow: hidden; position: relative; flex-shrink: 0; display: flex; flex-direction: column; }
+    .lp-big { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 61px; line-height: 76px; color: black; opacity: 0.9; letter-spacing: -1.4px; text-align: center; margin-top: 12px; }
+    .lp-label { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 20px; color: black; opacity: 0.56; text-align: center; }
+    .lp-upgrade { background: rgba(0,0,0,0.02); margin: 12px 16px 0; padding: 10px 12px; flex: 1; }
+    .lp-upgrade-text { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 16px; line-height: 26px; color: black; opacity: 0.9; }
+    .lp-upgrade-link { color: #364bc4; font-weight: 400; }
+
+    /* TASKS */
+    .tasks-w { flex: 1; height: 336px; background: white; border-radius: 2px; display: flex; flex-direction: column; }
+    .tasks-body { flex: 1; display: flex; justify-content: space-around; align-items: center; padding: 0 20px; }
+    .t-stat { text-align: center; }
+    .t-big { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 61px; line-height: 76px; color: black; opacity: 0.9; letter-spacing: -1.4px; }
+    .t-big-od { display: flex; align-items: flex-start; justify-content: center; }
+    .t-big-od .n { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 61px; line-height: 76px; color: black; opacity: 0.9; letter-spacing: -1.4px; }
+    .t-big-od .p { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 20px; line-height: 32px; color: black; opacity: 0.9; margin-top: 8px; }
+    .t-label { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 20px; line-height: 32px; color: black; opacity: 0.54; }
+    .t-label-red { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 20px; line-height: 32px; color: #ff4747; }
+    .t-sub { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 14px; line-height: 23px; color: black; opacity: 0.54; }
+
+    /* LISTING PERF */
+    .listing-perf { width: 784px; height: 338px; background: white; border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; flex-shrink: 0; }
+    .lsp-center { flex: 1; display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .lsp-big { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 49px; line-height: 66px; color: black; opacity: 0.9; letter-spacing: -1px; }
+    .lsp-label { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 31px; line-height: 43px; color: black; opacity: 0.9; }
+    .lsp-subs { display: flex; }
+    .lsp-sub { flex: 1; background: rgba(0,0,0,0.02); padding: 12px; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); }
+    .lsp-sub + .lsp-sub { border-left: 1px solid rgba(0,0,0,0.05); }
+    .lsp-num { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 25px; line-height: 40px; color: black; opacity: 0.9; }
+    .lsp-sublabel { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 14px; line-height: 23px; color: black; opacity: 0.9; }
+    .lsp-footer { height: 50px; display: flex; align-items: center; padding: 0 20px; border-top: 1px solid rgba(0,0,0,0.04); }
+
+    /* PROFILE */
+    .profile-w { flex: 1; height: 336px; background: white; border-radius: 2px; overflow: hidden; position: relative; display: flex; flex-direction: column; }
+    .pw-body { flex: 1; background: rgba(0,0,0,0.02); position: relative; padding: 24px 16px; }
+    .pw-photo { position: absolute; top: 24px; left: 16px; width: 96px; height: 96px; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); }
+    .pw-name { position: absolute; top: 24px; left: 128px; font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 16px; line-height: 26px; color: black; opacity: 0.9; }
+    .pw-slogan { position: absolute; top: 54px; left: 128px; right: 8px; font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 14px; line-height: 23px; color: black; opacity: 0.9; }
+    .pw-fields { position: absolute; top: 148px; left: 16px; right: 16px; }
+    .pw-field-row { display: flex; gap: 8px; font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 26px; color: black; margin-bottom: 2px; }
+    .pw-field-key { font-weight: 400; opacity: 0.9; min-width: 44px; }
+    .pw-field-val { font-weight: 300; opacity: 0.9; }
+    .pw-field-muted { font-weight: 300; opacity: 0.54; min-width: 52px; }
+    .pw-footer { height: 64px; background: white; display: flex; align-items: center; padding: 0 16px; flex-shrink: 0; }
+
+    /* BOTTOM INFO CARDS */
+    .info-cards { display: flex; background: white; border-radius: 2px; overflow: hidden; height: 191px; }
+    .info-card { flex: 1; padding: 20px 16px 16px 64px; position: relative; }
+    .info-card + .info-card { border-left: 1px solid rgba(0,0,0,0.08); }
+    .ic-icon { position: absolute; top: 20px; left: 16px; font-size: 24px; opacity: 0.4; }
+    .ic-icon-img { position: absolute; top: 20px; left: 16px; width: 24px; height: 24px; opacity: 0.7; }
+    .ic-title { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 20px; line-height: 32px; color: black; opacity: 0.9; }
+    .ic-desc { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 16px; line-height: 26px; color: black; opacity: 0.9; margin-top: 4px; }
+    .ic-link { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 16px; line-height: 26px; color: #364bc4; position: absolute; bottom: 16px; left: 64px; }
+
+    /* FOOTER */
+    .footer-dark { height: 50px; background: #333; display: flex; align-items: center; padding: 0 146px; gap: 150px; }
+    .footer-light { height: 50px; background: #f7f7f7; display: flex; align-items: center; padding: 0 146px; gap: 48px; }
+    .footer-link { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 15px; text-decoration: none; white-space: nowrap; }
+    .footer-dark .footer-link { color: white; }
+    .footer-light .footer-link { color: #333; }
+    .footer-copy { height: 50px; background: white; display: flex; align-items: center; justify-content: flex-end; padding: 0 10px; }
+    .footer-copy-text { font-family: 'Roboto', sans-serif; font-weight: 400; font-size: 10px; color: #c4c4c4; text-align: right; line-height: 18px; }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.54); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-overlay.hidden { display: none; }
+    .modal-box { background: white; border-radius: 16px; padding: 40px; width: 560px; display: flex; flex-direction: column; gap: 24px; max-height: 90vh; overflow-y: auto; }
+    .modal-hdr { display: flex; align-items: flex-start; gap: 16px; }
+    .modal-title { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 24px; line-height: 32px; color: #181c24; flex: 1; text-align: center; }
+    .modal-close { cursor: pointer; width: 16px; height: 16px; flex-shrink: 0; margin-top: 8px; }
+    .modal-body { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #616f86; }
+    .modal-body + .modal-body { margin-top: -12px; }
+    .team-card { border: 1px solid #e3e6e9; border-radius: 8px; padding: 20px 20px; display: flex; align-items: center; gap: 16px; min-height: 128px; }
+    .team-av-wrap { position: relative; flex-shrink: 0; }
+    .team-av { width: 84px; height: 84px; border-radius: 50%; }
+    .team-lead-tag { position: absolute; bottom: -6px; left: 5px; background: #1e61d9; border-radius: 40px; padding: 4px 10px; font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 12px; line-height: 16px; letter-spacing: -0.5px; color: white; white-space: nowrap; }
+    .team-name { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; color: #181c24; }
+    .team-invited { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #616f86; margin-top: 8px; }
+    .modal-btns { display: flex; gap: 20px; justify-content: flex-end; }
+    /* modal icon (megaphone) */
+    .modal-icon { text-align: center; font-size: 48px; line-height: 1; }
+    /* modal illustration (spotlight modal) */
+    .modal-illus { width: 100%; border-radius: 8px; display: block; }
+    /* bullet list */
+    .modal-bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .modal-bullets li { font-family: 'Rubik', sans-serif; font-size: 16px; line-height: 24px; color: #616f86; padding-left: 20px; position: relative; }
+    .modal-bullets li::before { content: '•'; position: absolute; left: 0; color: #4052a2; font-weight: 700; }
+    .modal-bullets li b { color: #181c24; }
+    /* download link */
+    .modal-dl-link { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #4052a2; text-decoration: underline; cursor: pointer; }
+    /* post-modal completed states */
+    .text-link-done { font-family: 'Rubik', sans-serif; font-weight: 500; font-size: 18px; color: #4052a2; text-decoration: underline; text-decoration-skip-ink: none; white-space: nowrap; flex-shrink: 0; cursor: pointer; }
+    .text-continue-app { font-family: 'Rubik', sans-serif; font-weight: 500; font-size: 18px; color: #616f86; white-space: nowrap; flex-shrink: 0; }
+    /* onboarding success animation */
+    @keyframes successPop {
+      0%   { transform: scale(0.3); opacity: 0; }
+      65%  { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+    @keyframes successFadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ob-success { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 40px; gap: 16px; }
+    .ob-check-wrap { animation: successPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    .ob-check { width: 64px; height: 64px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; font-weight: 700; line-height: 1; }
+    .ob-success-title { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 24px; color: #181c24; animation: successFadeUp 0.4s ease 0.3s both; }
+    .ob-success-sub { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; color: #616f86; animation: successFadeUp 0.4s ease 0.45s both; }
+    /* restart button */
+    .restart-btn { position: fixed; bottom: 24px; right: 24px; background: rgba(0,0,0,0.65); color: white; border: none; border-radius: 20px; padding: 8px 16px; font-family: 'Rubik', sans-serif; font-weight: 500; font-size: 13px; cursor: pointer; z-index: 2000; backdrop-filter: blur(4px); transition: background 0.2s; }
+    .restart-btn:hover { background: rgba(0,0,0,0.85); }
+    /* QR code card */
+    .modal-qr-card { border: 1px solid #616f86; border-radius: 8px; padding: 20px; display: flex; align-items: center; gap: 20px; }
+    .modal-qr-img { width: 100px; height: 100px; flex-shrink: 0; object-fit: contain; }
+    .modal-qr-text b { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; color: #181c24; display: block; margin-bottom: 6px; }
+    .modal-qr-text span { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 14px; line-height: 20px; color: #616f86; }
+    /* invited text */
+    .modal-invite { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #616f86; }
+  </style>
+</head>
+<body>
+
+<!-- TOP HAT -->
+<div class="tophat">
+  <div class="tophat-links">
+    <a href="#">Go to realtor.com</a><span class="sep">|</span>
+    <a href="#">Homepage</a><span class="sep">|</span>
+    <a href="#">Your profile</a><span class="sep">|</span>
+    <a href="#">Your listings</a>
+  </div>
+  <span class="tophat-right">Purchase products</span>
+</div>
+
+<!-- MAIN HEADER -->
+<div class="main-header">
+  <div class="logo">
+    <img src="https://www.figma.com/api/mcp/asset/83386cc7-5d8b-4ef7-824c-69d50391d3c8" alt="realtor.com for Professionals">
+  </div>
+  <div class="profile-area">
+    <div class="welcome-block">
+      <span class="w1">Welcome</span>
+      <span class="w2">Kelly</span>
+    </div>
+    <div class="avatar-group">
+      <img class="avatar-photo" src="https://www.figma.com/api/mcp/asset/734bd74b-97db-4a7f-b3ea-d41440df8dab" alt="Kelly">
+      <div class="avatar-arrow">▾</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="nav-item"><span class="nav-home">Home</span></div>
+    <div class="nav-divider"></div>
+    <div class="nav-item"><span class="nav-label">Contacts</span></div>
+    <div class="nav-item"><span class="nav-label">Tasks</span></div>
+    <div class="nav-divider"></div>
+    <div class="nav-item"><span class="nav-label">Seller Leads</span></div>
+    <div class="nav-item">
+      <span class="nav-label">Listings and Promotions</span>
+      <div class="red-dot"></div>
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-item"><span class="nav-label">Profile</span><span class="nav-chev">‹</span></div>
+    <div class="nav-item"><span class="nav-label">Performance</span><span class="nav-chev">‹</span></div>
+    <div class="nav-item"><span class="nav-label">My Team</span><span class="nav-chev">‹</span></div>
+    <div class="nav-divider"></div>
+    <div class="nav-item"><span class="nav-label">Purchase Products</span></div>
+    <div class="nav-item"><span class="nav-label">My Products</span></div>
+    <div class="nav-item"><span class="nav-label">Billing</span><span class="nav-chev">‹</span></div>
+    <div class="nav-item"><span class="nav-label">Help</span><span class="nav-chev">‹</span></div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- 1. ONBOARDING CARD -->
+    <div class="onboarding">
+      <div class="ob-title">Team onboarding</div>
+      <div class="ob-sub">Complete the onboarding into all of your products.</div>
+      <div class="ob-item">
+        <div class="step-num">1</div>
+        <div class="ob-body">
+          <div class="ob-title-row"><span class="ob-item-title">Spotlight Listings for Teams</span><span class="new-pill">New</span></div>
+          <div class="ob-desc">Learn how to promote your listings and download the one-pager presentation.</div>
+        </div>
+        <button class="outline-btn" id="step-btn-1" onclick="showModal('modal-spotlight', 1)">Get started</button>
+      </div>
+      <div class="ob-item">
+        <div class="step-num">2</div>
+        <div class="ob-body">
+          <div class="ob-title-row"><span class="ob-item-title">Seller Leads</span></div>
+          <div class="ob-desc">Complete your seller lead preferences to start receiving leads</div>
+        </div>
+        <button class="outline-btn" id="step-btn-2" onclick="showModal('modal-seller-leads', 2)">Complete setup</button>
+      </div>
+      <div class="ob-item">
+        <div class="step-num">3</div>
+        <div class="ob-body">
+          <div class="ob-title-row"><span class="ob-item-title">Market VIP</span></div>
+          <div class="ob-desc">Become the go-to agent in your ZIP code - download the app to continue.</div>
+        </div>
+        <button class="outline-btn" id="step-btn-3" onclick="showModal('modal-market-vip', 3)">Get the app</button>
+      </div>
+      <div class="ob-item">
+        <div class="step-num">4</div>
+        <div class="ob-body">
+          <div class="ob-title-row"><span class="ob-item-title">Ready Connect Concierge</span></div>
+          <div class="ob-desc">Become the go-to agent in your ZIP code - download the app to continue.</div>
+        </div>
+        <button class="outline-btn" id="step-btn-4" onclick="showModal('modal-readyconnect', 4)">Get the app</button>
+      </div>
+    </div>
+
+    <!-- 2. FOLLOW-UPS + RECENT LEADS -->
+    <div class="row">
+      <div class="follow-ups">
+        <div class="fu-header">
+          <span class="fu-hdr-title">Suggested follow-ups</span>
+          <span class="fu-more">4 more</span>
+        </div>
+        <div class="fu-card">
+          <div class="fu-top-row">
+            <div class="init-av">DH</div>
+            <div>
+              <div class="fu-person-name">Dorothy Hawkins</div>
+              <div class="fu-inquiry">inquired about 409 Ardor Ave</div>
+            </div>
+          </div>
+          <div class="fu-ts">15 min ago</div>
+          <img class="fu-x" src="https://www.figma.com/api/mcp/asset/b91e57a5-eea5-4764-953b-43f552b82488" alt="close">
+          <div class="fu-contacts">
+            <div class="fu-contact"><span class="fu-contact-icon">📞</span><span>604-123-4567</span></div>
+            <div class="fu-contact"><span class="fu-contact-icon">✉</span><span>dorothy.hawkins@hotmail.com</span></div>
+          </div>
+        </div>
+        <div class="fu-bottom-band"></div>
+      </div>
+
+      <div class="recent-leads">
+        <img class="rl-photo" src="https://www.figma.com/api/mcp/asset/b2973ff5-c699-4359-8172-72f50e9caf89" alt="Listing">
+        <div class="rl-overlay"></div>
+        <span class="rl-title">Recent leads</span>
+        <span class="rl-time">1 min ago</span>
+        <div class="rl-new"><span>New</span></div>
+        <div class="rl-av-wrap"><div class="rl-av">CB</div></div>
+        <div class="rl-info">
+          <div class="rl-name">Claire Barnes</div>
+          <div class="rl-email">claire.barnes@email.io</div>
+          <div class="rl-addr">2947 Hill St, Austin, TX</div>
+          <div class="rl-price">$425,000</div>
+          <div class="rl-source">Source: realtor.com®</div>
+        </div>
+        <div class="rl-arrows"><span class="rl-arr">❮</span><span class="rl-arr">❯</span></div>
+        <button class="rl-view-btn">View details</button>
+        <div class="rl-dots">
+          <div class="rl-dot on"></div>
+          <div class="rl-dot"></div>
+          <div class="rl-dot"></div>
+          <div class="rl-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. LEAD PERFORMANCE + TASKS -->
+    <div class="row-31">
+      <div class="lead-perf">
+        <div class="w-hdr"><span class="w-hdr-title">Lead performance</span><span class="w-hdr-sub">Last 30 days</span></div>
+        <div class="lp-big">37</div>
+        <div class="lp-label">leads received</div>
+        <div class="lp-upgrade">
+          <div class="lp-upgrade-text">Want to improve your response rate and conversion for your leads?</div>
+          <div class="lp-upgrade-text" style="margin-top:4px;">Check out our <span class="lp-upgrade-link">Realsuite℠</span> tools</div>
+        </div>
+        <div class="w-footer"><span class="w-link">View your lead report</span></div>
+      </div>
+
+      <div class="tasks-w">
+        <div class="w-hdr"><span class="w-hdr-title">Tasks</span></div>
+        <div class="tasks-body">
+          <div class="t-stat">
+            <div class="t-big">3</div>
+            <div class="t-label">due today</div>
+          </div>
+          <div class="t-stat">
+            <div class="t-big-od"><span class="n">99</span><span class="p">+</span></div>
+            <div class="t-label-red">overdue</div>
+            <div class="t-sub">past 3 days</div>
+          </div>
+          <div class="t-stat">
+            <div class="t-big">12</div>
+            <div class="t-label">coming up</div>
+            <div class="t-sub">next 7 days</div>
+          </div>
+        </div>
+        <div class="w-footer"><span class="w-link">View all tasks</span></div>
+      </div>
+    </div>
+
+    <!-- 4. LISTING PERF + PROFILE -->
+    <div class="row">
+      <div class="listing-perf">
+        <div class="w-hdr" style="justify-content:space-between;">
+          <span class="w-hdr-title">Listing performance</span>
+          <span class="w-hdr-sub">Last 30 days</span>
+        </div>
+        <div class="lsp-center">
+          <div class="lsp-big">8</div>
+          <div class="lsp-label">total listings</div>
+        </div>
+        <div class="lsp-subs">
+          <div class="lsp-sub"><div class="lsp-num">2.1M</div><div class="lsp-sublabel">Search result displays</div></div>
+          <div class="lsp-sub"><div class="lsp-num">285k</div><div class="lsp-sublabel">Listing detail views</div></div>
+          <div class="lsp-sub"><div class="lsp-num">1,025</div><div class="lsp-sublabel">Listing leads</div></div>
+        </div>
+        <div class="lsp-footer"><span class="w-link">View your listing report</span></div>
+      </div>
+
+      <div class="profile-w">
+        <div class="pw-body">
+          <img class="pw-photo" src="https://www.figma.com/api/mcp/asset/17e37244-657a-4e83-bf19-48ecfea21fa3" alt="Kelly Agent">
+          <div class="pw-name">Kelly Agent</div>
+          <div class="pw-slogan">Real estate is more than a people business, it's REAL business.</div>
+          <div class="pw-fields">
+            <div class="pw-field-row"><span class="pw-field-key">Email</span><span class="pw-field-val">kellyagent@doverealty.ico</span></div>
+            <div class="pw-field-row" style="margin-top:8px;">
+              <span class="pw-field-key">Phone</span>
+              <div>
+                <div style="display:flex;gap:12px;"><span class="pw-field-muted">Mobile</span><span class="pw-field-val">(123) 456-7890</span></div>
+                <div style="display:flex;gap:12px;"><span class="pw-field-muted">Office</span><span class="pw-field-val">(123) 123-1234</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pw-footer"><span class="w-link">Improve your profile</span></div>
+      </div>
+    </div>
+
+    <!-- 5. BOTTOM INFO CARDS -->
+    <div class="info-cards">
+      <div class="info-card">
+        <img class="ic-icon-img" src="https://www.figma.com/api/mcp/asset/e9c0c598-1e8a-4be7-b6f1-3057e4103dbf" alt="">
+        <div class="ic-title">Join a webinar</div>
+        <div class="ic-desc">Get set up for success and keep improving in one of our frequent and informative sessions.</div>
+        <span class="ic-link">Register now</span>
+      </div>
+      <div class="info-card">
+        <span class="ic-icon">💬</span>
+        <div class="ic-title">Customer Support</div>
+        <div class="ic-desc">Access knowledge articles, educational videos, and contact our support team by phone or chat.</div>
+        <span class="ic-link">Get help</span>
+      </div>
+      <div class="info-card">
+        <span class="ic-icon" style="font-size:20px;font-weight:700;opacity:0.5;">f</span>
+        <div class="ic-title">Connect on Facebook</div>
+        <div class="ic-desc">Join the <span style="color:#364bc4;">realtor.com®</span> pro community for tips, live sessions and product news.</div>
+        <span class="ic-link">Become a member</span>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-dark">
+  <a class="footer-link" href="#">ABOUT US</a>
+  <a class="footer-link" href="#">CAREERS</a>
+  <a class="footer-link" href="#">FEEDBACK</a>
+  <a class="footer-link" href="#">MEDIA ROOM</a>
+</div>
+<div class="footer-light">
+  <a class="footer-link" href="#">AD CHOICES</a>
+  <a class="footer-link" href="#">ADVERTISE WITH US</a>
+  <a class="footer-link" href="#">AGENT SUPPORT</a>
+  <a class="footer-link" href="#">PRODUCTS</a>
+  <a class="footer-link" href="#">PRIVACY / TERMS</a>
+  <a class="footer-link" href="#">SITEMAP</a>
+</div>
+<div class="footer-copy">
+  <div class="footer-copy-text">
+    ©1995-2016 National Association of REALTORS® and Move, Inc. All rights reserved.<br>
+    realtor.com® is the official site of the National Association of REALTORS® and is operated by Move, Inc., a subsidiary of News Corp.
+  </div>
+</div>
+
+<!-- MODAL: Team invite (shown on page load) -->
+<div class="modal-overlay" id="modal-team" onclick="if(event.target===this)closeModal('modal-team')">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title">You've been invited to join a team!</div>
+      <img class="modal-close" src="https://www.figma.com/api/mcp/asset/c8cd7196-37c2-4da7-a61d-cbcc834b4fe8" alt="Close" onclick="closeModal('modal-team')">
+    </div>
+    <div class="modal-body">
+      You've been added to The Realty Group by Samantha M. Lee. Accepting your invite gives you access to team tools, and co-branded marketing resources.
+    </div>
+    <div class="team-card">
+      <div class="team-av-wrap">
+        <img class="team-av" src="https://www.figma.com/api/mcp/asset/54eea055-3609-4cfd-af07-e9b3bdc86e65" alt="The Realty Group">
+        <div class="team-lead-tag">Team lead</div>
+      </div>
+      <div>
+        <div class="team-name">The Realty Group</div>
+        <div class="team-invited">Invited by Samantha M. Lee</div>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="outline-btn" onclick="closeModal('modal-team')">Decline</button>
+      <button class="fill-btn" onclick="closeModal('modal-team')">Accept invitation</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Spotlight Listings for Teams (step 1 "Get started") -->
+<div class="modal-overlay hidden" id="modal-spotlight" onclick="if(event.target===this)closeModal('modal-spotlight')">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title">Spotlight Listings for Teams</div>
+      <img class="modal-close" src="https://www.figma.com/api/mcp/asset/9a820629-9e40-482e-9ed9-98b306dc55d7" alt="Close" onclick="closeModal('modal-spotlight')">
+    </div>
+    <img class="modal-illus" src="https://www.figma.com/api/mcp/asset/c2b30409-90e3-4724-bc74-f67b207bae29" alt="Spotlight Listings">
+    <div class="modal-body">
+      Help your team stand out by promoting listings directly on realtor.com®. Spotlight Listings gives your agents a powerful tool to showcase properties and build their brand with every home they sell.
+    </div>
+    <ul class="modal-bullets">
+      <li><b>More visibility</b> — Your listings appear prominently in search results, reaching more qualified buyers.</li>
+      <li><b>Branded promotion</b> — Every spotlight features your agent's photo and contact information.</li>
+      <li><b>Performance insight</b> — Track views, saves, and lead activity for each promoted listing.</li>
+      <li><b>No extra setup</b> — Spotlight Listings works seamlessly with your existing team workflow.</li>
+    </ul>
+    <span class="modal-dl-link">Download the listing presentation</span>
+    <div class="modal-btns">
+      <button class="fill-btn" onclick="closeModal('modal-spotlight')">I understand</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: RealPro Select Seller Leads (step 2 "Complete setup") -->
+<div class="modal-overlay hidden" id="modal-seller-leads" onclick="if(event.target===this)closeModal('modal-seller-leads')">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title">RealPro Select Seller Leads</div>
+      <img class="modal-close" src="https://www.figma.com/api/mcp/asset/cce44d1e-56a4-4c7f-a6cd-fd1f07e2b0c4" alt="Close" onclick="closeModal('modal-seller-leads')">
+    </div>
+    <div class="modal-icon">📢</div>
+    <div class="modal-invite">
+      You've been invited to <b>RealPro Select Seller Leads.</b>
+    </div>
+    <div class="modal-body">
+      Unlock more opportunities with exclusive access to high-intent seller leads in your market area. These leads are pre-qualified and matched to agents with proven track records.
+    </div>
+    <div class="modal-body">
+      With features like exclusive seller leads, advanced filtering, and priority routing, you'll spend less time prospecting and more time closing.
+    </div>
+    <div class="modal-btns">
+      <button class="outline-btn" onclick="closeModal('modal-seller-leads')">Decline invitation</button>
+      <button class="fill-btn" onclick="closeModal('modal-seller-leads')">Get started</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Turn Market VIP into more closings (step 3 "Get the app") -->
+<div class="modal-overlay hidden" id="modal-market-vip" onclick="if(event.target===this)closeModal('modal-market-vip')">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title">Turn Market VIP into more closings</div>
+      <img class="modal-close" src="https://www.figma.com/api/mcp/asset/3e283eb9-dd14-4aaa-9559-f0d8225a7890" alt="Close" onclick="closeModal('modal-market-vip')">
+    </div>
+    <div class="modal-icon">📢</div>
+    <div class="modal-body">
+      Get exclusive presence in your chosen ZIP codes and become the go-to agent buyers see first. Market VIP puts your name and listings front and center when buyers are actively searching.
+    </div>
+    <div class="modal-body">
+      Download the realtor.com® app to activate Market VIP and start connecting with more buyers in your area today.
+    </div>
+    <div class="modal-qr-card">
+      <img class="modal-qr-img" src="https://www.figma.com/api/mcp/asset/97d387e1-ddb1-4658-8c28-908292e6f973" alt="QR Code">
+      <div class="modal-qr-text">
+        <b>Scan to download</b>
+        <span>Point your camera at the QR code to download the realtor.com® app and activate Market VIP.</span>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="fill-btn" onclick="closeModal('modal-market-vip')">Complete step</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ReadyConnect Concierge (step 4 "Get the app") -->
+<div class="modal-overlay hidden" id="modal-readyconnect" onclick="if(event.target===this)closeModal('modal-readyconnect')">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title">ReadyConnect Concierge</div>
+      <img class="modal-close" src="https://www.figma.com/api/mcp/asset/35f529b5-37af-49fc-a593-9152b6231b21" alt="Close" onclick="closeModal('modal-readyconnect')">
+    </div>
+    <div class="modal-icon">📢</div>
+    <div class="modal-body">
+      ReadyConnect Concierge connects you with highly qualified buyers at the exact moment they're ready to act. Every lead is screened, nurtured, and transferred live so you can focus on closing.
+    </div>
+    <div class="modal-body">
+      Download the realtor.com® app to activate ReadyConnect Concierge and get notified the moment a new lead is matched to you.
+    </div>
+    <div class="modal-qr-card">
+      <img class="modal-qr-img" src="https://www.figma.com/api/mcp/asset/ea9e7985-dc5b-45c9-9c77-b23ce3791f6d" alt="QR Code">
+      <div class="modal-qr-text">
+        <b>Scan to download</b>
+        <span>Point your camera at the QR code to download the realtor.com® app and activate ReadyConnect Concierge.</span>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="fill-btn" onclick="closeModal('modal-readyconnect')">Complete step</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESTART BUTTON -->
+<button class="restart-btn" onclick="location.reload()" title="Restart prototype">↺ Restart</button>
+
+<script>
+  var pendingStep = null;
+  var completedCount = 0;
+
+  var completedHTML = {
+    1: '<a class="text-link-done" href="#">Download presentation</a>',
+    2: '<a class="text-link-done" href="#">Go to Seller Leads</a>',
+    3: '<span class="text-continue-app">Continue in app</span>',
+    4: '<span class="text-continue-app">Continue in app</span>'
+  };
+
+  function showModal(modalId, stepNum) {
+    pendingStep = stepNum || null;
+    document.getElementById(modalId).classList.remove('hidden');
+  }
+
+  function closeModal(modalId) {
+    document.getElementById(modalId).classList.add('hidden');
+    if (pendingStep !== null) {
+      var btn = document.getElementById('step-btn-' + pendingStep);
+      if (btn && completedHTML[pendingStep]) {
+        btn.outerHTML = completedHTML[pendingStep];
+        completedCount++;
+        if (completedCount >= 4) {
+          setTimeout(triggerSuccess, 300);
+        }
+      }
+      pendingStep = null;
+    }
+  }
+
+  function triggerSuccess() {
+    var card = document.querySelector('.onboarding');
+    if (!card) return;
+
+    // Fade out current content
+    card.style.transition = 'opacity 0.3s ease';
+    card.style.opacity = '0';
+
+    setTimeout(function () {
+      // Swap in success state
+      card.innerHTML =
+        '<div class="ob-success">' +
+          '<div class="ob-check-wrap"><div class="ob-check">✓</div></div>' +
+          '<div class="ob-success-title">You\'re all set!</div>' +
+          '<div class="ob-success-sub">You\'ve completed your team onboarding.</div>' +
+        '</div>';
+      card.style.transition = 'opacity 0.4s ease';
+      card.style.opacity = '1';
+
+      // After showing success for ~2s, animate card away
+      setTimeout(function () {
+        var h = card.offsetHeight;
+        card.style.overflow = 'hidden';
+        card.style.maxHeight = h + 'px';
+
+        // Two rAFs to ensure the browser has painted before transitioning
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            card.style.transition = 'opacity 0.5s ease, max-height 0.6s ease 0.1s, padding 0.55s ease 0.1s, margin-bottom 0.55s ease 0.1s';
+            card.style.opacity = '0';
+            card.style.maxHeight = '0';
+            card.style.padding = '0';
+            card.style.marginBottom = '-24px';
+            setTimeout(function () { card.remove(); }, 750);
+          });
+        });
+      }, 2000);
+    }, 350);
+  }
+</script>
+</body>
+</html>
