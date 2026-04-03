@@ -722,40 +722,44 @@
     var card = document.querySelector('.onboarding');
     if (!card) return;
 
-    // Fade out current content
-    card.style.transition = 'opacity 0.3s ease';
-    card.style.opacity = '0';
+    // Collapse and remove the onboarding card
+    var h = card.offsetHeight;
+    card.style.overflow = 'hidden';
+    card.style.maxHeight = h + 'px';
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        card.style.transition = 'opacity 0.4s ease, max-height 0.5s ease 0.05s, padding 0.45s ease 0.05s, margin-bottom 0.45s ease 0.05s';
+        card.style.opacity = '0';
+        card.style.maxHeight = '0';
+        card.style.padding = '0';
+        card.style.marginBottom = '-24px';
+        setTimeout(function () { card.remove(); }, 550);
+      });
+    });
 
-    setTimeout(function () {
-      // Swap in success state
-      card.innerHTML =
-        '<div class="ob-success">' +
-          '<div class="ob-check-wrap"><div class="ob-check">✓</div></div>' +
-          '<div class="ob-success-title">You\'re all set!</div>' +
-          '<div class="ob-success-sub">You\'ve completed your team onboarding.</div>' +
-        '</div>';
-      card.style.transition = 'opacity 0.4s ease';
-      card.style.opacity = '1';
-
-      // After showing success for ~2s, animate card away
-      setTimeout(function () {
-        var h = card.offsetHeight;
-        card.style.overflow = 'hidden';
-        card.style.maxHeight = h + 'px';
-
-        // Two rAFs to ensure the browser has painted before transitioning
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            card.style.transition = 'opacity 0.5s ease, max-height 0.6s ease 0.1s, padding 0.55s ease 0.1s, margin-bottom 0.55s ease 0.1s';
-            card.style.opacity = '0';
-            card.style.maxHeight = '0';
-            card.style.padding = '0';
-            card.style.marginBottom = '-24px';
-            setTimeout(function () { card.remove(); }, 750);
-          });
-        });
-      }, 2000);
-    }, 350);
+    // Show toast
+    var toast = document.createElement('div');
+    toast.id = 'success-toast';
+    toast.innerHTML =
+      '<div style="display:flex;align-items:center;gap:16px;flex:1;">' +
+        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" flex-shrink="0" style="flex-shrink:0;">' +
+          '<circle cx="12" cy="12" r="9" fill="white" fill-opacity="0.25"/>' +
+          '<circle cx="12" cy="12" r="9" stroke="white" stroke-width="1.5"/>' +
+          '<path d="M8.5 12.5l2.5 2.5 4.5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '</svg>' +
+        '<p style="font-family:\'Rubik\',sans-serif;font-weight:400;font-size:14px;line-height:18px;color:white;flex:1;padding-top:3px;">You have successfully completed your teams onboarding.</p>' +
+        '<div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">' +
+          '<div style="width:1px;height:24px;background:rgba(255,255,255,0.3);"></div>' +
+          '<button onclick="document.getElementById(\'success-toast\').remove()" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;width:24px;height:24px;">' +
+            '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1l12 12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    toast.style.cssText = 'position:fixed;top:24px;right:24px;width:456px;background:#0a801f;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.14);padding:16px;display:flex;align-items:center;z-index:2000;opacity:0;transition:opacity 0.3s ease;';
+    document.body.appendChild(toast);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { toast.style.opacity = '1'; });
+    });
   }
 </script>
 </body>
