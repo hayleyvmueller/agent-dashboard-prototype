@@ -532,7 +532,7 @@
     </div>
     <div class="modal-btns">
       <button class="outline-btn" onclick="closeModal('modal-team')">Decline</button>
-      <button class="fill-btn" onclick="closeModal('modal-team')">Accept invitation</button>
+      <button class="fill-btn" onclick="acceptTeamInvite()">Accept invitation</button>
     </div>
   </div>
 </div>
@@ -648,6 +648,7 @@
 <script>
   var pendingStep = null;
   var completedCount = 0;
+  var savedOnboardingHTML = null;
 
   var completedHTML = {
     1: '<a class="text-link-done" href="#">Go to listings</a>',
@@ -682,10 +683,20 @@
     document.getElementById(modalId).classList.remove('hidden');
   }
 
+  function acceptTeamInvite() {
+    document.getElementById('modal-team').classList.add('hidden');
+    var card = document.querySelector('.onboarding');
+    if (card && savedOnboardingHTML !== null) {
+      card.innerHTML = savedOnboardingHTML;
+      savedOnboardingHTML = null;
+    }
+  }
+
   function dismissTeamInvite() {
     document.getElementById('modal-team').classList.add('hidden');
     var card = document.querySelector('.onboarding');
     if (!card) return;
+    savedOnboardingHTML = card.innerHTML;
     card.innerHTML =
       '<div style="display:flex;align-items:center;gap:16px;width:100%;">' +
         '<div style="flex:1;">' +
