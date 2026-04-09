@@ -768,6 +768,17 @@
       requestAnimationFrame(function () { toast.style.opacity = '1'; });
     });
   }
+
+  // Handle returning from listings page with step 1 completed
+  if (new URLSearchParams(window.location.search).get('step1') === 'done') {
+    document.getElementById('modal-team').classList.add('hidden');
+    var card = document.querySelector('.onboarding');
+    if (card) {
+      card.style.display = 'flex';
+      var btn1 = document.getElementById('step-btn-1');
+      if (btn1) { btn1.outerHTML = completedHTML[1]; completedCount = 1; }
+    }
+  }
 </script>
 </body>
 </html>
