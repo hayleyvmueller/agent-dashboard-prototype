@@ -781,6 +781,21 @@
     // Clean the URL so a hard refresh starts the full flow over
     window.history.replaceState({}, '', window.location.pathname);
   }
+
+  // Handle returning from seller leads page with steps 1 and 2 completed
+  if (new URLSearchParams(window.location.search).get('step2') === 'done') {
+    document.getElementById('modal-team').classList.add('hidden');
+    var card = document.querySelector('.onboarding');
+    if (card) {
+      card.style.display = 'flex';
+      var btn1 = document.getElementById('step-btn-1');
+      if (btn1) { btn1.outerHTML = completedHTML[1]; completedCount++; }
+      var btn2 = document.getElementById('step-btn-2');
+      if (btn2) { btn2.outerHTML = completedHTML[2]; completedCount++; }
+    }
+    // Clean the URL so a hard refresh starts the full flow over
+    window.history.replaceState({}, '', window.location.pathname);
+  }
 </script>
 </body>
 </html>
