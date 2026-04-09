@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>Listings and Promotions – realtor.com for Professionals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f5f5f5; min-width: 1440px; font-family: 'Roboto', sans-serif; }
+
+    /* TOP HAT */
+    .tophat { height: 30px; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+    .tophat a { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 12px; color: rgba(255,255,255,0.8); text-decoration: none; }
+    .tophat .sep { color: rgba(255,255,255,0.4); margin: 0 8px; font-size: 12px; }
+    .tophat-links { display: flex; align-items: center; }
+    .tophat-right { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 12px; color: rgba(255,255,255,0.8); }
+
+    /* MAIN HEADER */
+    .main-header { height: 68px; background: white; border-top: 4px solid #6677d0; border-bottom: 1px solid rgba(0,0,0,0.2); display: flex; align-items: center; padding: 0 23px 0 10px; }
+    .logo img { height: 63px; width: auto; }
+    .logo { flex: 1; }
+    .profile-area { display: flex; align-items: center; gap: 8px; }
+    .welcome-block { text-align: right; }
+    .welcome-block .w1 { display: block; font-size: 14px; font-weight: 300; color: black; opacity: 0.9; }
+    .welcome-block .w2 { display: block; font-size: 14px; font-weight: 400; color: black; opacity: 0.9; margin-top: 4px; }
+    .avatar-group { display: flex; }
+    .avatar-photo { width: 40px; height: 40px; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); display: block; }
+    .avatar-arrow { width: 20px; height: 40px; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 11px; color: #666; }
+
+    /* LAYOUT */
+    .page-wrap { display: flex; }
+
+    /* SIDEBAR */
+    .sidebar { width: 256px; background: white; flex-shrink: 0; padding-top: 8px; min-height: calc(100vh - 98px); }
+    .nav-item { height: 56px; display: flex; align-items: center; padding: 0 24px; cursor: pointer; position: relative; justify-content: space-between; }
+    .nav-home { font-family: 'Helvetica', sans-serif; font-size: 16px; color: #364bc4; text-decoration: none; }
+    .nav-label { font-size: 16px; font-weight: 400; color: black; opacity: 0.9; }
+    .nav-active { font-size: 16px; font-weight: 600; color: #4a5dca; }
+    .nav-divider { height: 1px; background: rgba(0,0,0,0.1); }
+    .nav-chev { font-size: 13px; color: black; opacity: 0.8; }
+
+    /* MAIN CONTENT */
+    .main { width: 1112px; padding: 30px 0 40px 32px; display: flex; flex-direction: column; gap: 24px; flex-shrink: 0; }
+
+    /* CARDS */
+    .card { background: white; border-radius: 16px; padding: 40px; }
+    .card-title { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 24px; line-height: 32px; color: #181c24; }
+    .card-subtitle { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #616f86; margin-top: 8px; }
+
+    /* TWO-COL */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    /* AGENT CARD */
+    .agent-card { border: 1px solid #e3e6e9; border-radius: 8px; padding: 20px 24px; display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+    .agent-av-wrap { position: relative; flex-shrink: 0; }
+    .agent-av { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; display: block; }
+    .agent-av-fallback { width: 84px; height: 84px; border-radius: 50%; background: #c5cef8; display: flex; align-items: center; justify-content: center; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 28px; color: #4052a2; flex-shrink: 0; }
+    .team-lead-badge { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); background: #1e61d9; color: white; font-size: 12px; font-weight: 600; font-family: 'Rubik', sans-serif; padding: 4px 10px; border-radius: 40px; white-space: nowrap; letter-spacing: -0.5px; }
+    .agent-name { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; color: #181c24; }
+    .agent-company { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #616f86; margin-top: 8px; }
+    .agent-email { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 14px; line-height: 20px; color: #4052a2; text-decoration: underline; margin-top: 8px; display: block; }
+
+    /* TEXT BUTTON */
+    .text-btn { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 0; }
+    .text-btn span { font-family: 'Rubik', sans-serif; font-weight: 500; font-size: 18px; color: #4052a2; text-decoration: underline; }
+
+    /* STATS */
+    .stats-row { display: flex; justify-content: space-between; margin-top: 24px; }
+    .stat-item { max-width: 280px; }
+    .stat-big { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 24px; line-height: 32px; color: #181c24; }
+    .stat-label { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 16px; line-height: 24px; color: #616f86; margin-top: 4px; }
+    .stat-sub { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 12px; line-height: 24px; color: #616f86; }
+
+    /* LISTINGS TABLE */
+    .listings-controls { display: flex; align-items: center; justify-content: space-between; margin: 24px 0; }
+    .search-box { height: 48px; width: 336px; border: 1px solid #b9bfc9; border-radius: 8px; display: flex; align-items: center; padding: 0 16px; gap: 8px; }
+    .search-box input { border: none; outline: none; font-family: 'Rubik', sans-serif; font-size: 16px; color: #48566c; opacity: 0.6; width: 100%; background: none; cursor: default; }
+    .toggle-box { height: 48px; border: 1px solid #e3e6e9; border-radius: 8px; display: flex; align-items: center; padding: 0 20px; gap: 8px; font-family: 'Rubik', sans-serif; font-size: 14px; color: #181c24; }
+    .toggle-switch { width: 44px; height: 22px; background: #949494; border-radius: 100px; position: relative; flex-shrink: 0; margin-left: 4px; }
+    .toggle-switch-knob { width: 18px; height: 18px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+
+    /* TABS */
+    .tabs { display: flex; gap: 32px; border-bottom: 1px solid #e3e6e9; }
+    .tab { padding: 8px 0; font-family: 'Rubik', sans-serif; font-size: 16px; color: #616f86; cursor: pointer; border-bottom: 4px solid transparent; margin-bottom: -1px; }
+    .tab.active { color: #181c24; font-weight: 600; border-bottom-color: #181c24; }
+
+    /* TABLE */
+    .table-header { display: grid; grid-template-columns: 1fr 140px 130px 130px 130px; padding: 12px 24px 12px 24px; }
+    .th { font-family: 'Rubik', sans-serif; font-weight: 500; font-size: 14px; color: #181c24; display: flex; align-items: center; gap: 4px; }
+    .table-row { display: grid; grid-template-columns: 1fr 140px 130px 130px 130px; padding: 24px; border-top: 1px solid #e3e6e9; align-items: center; }
+    .prop-info { display: flex; gap: 16px; align-items: flex-start; }
+    .prop-img { width: 120px; height: 80px; border-radius: 8px; object-fit: cover; flex-shrink: 0; background: #dde3ec; }
+    .prop-address { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 16px; color: #181c24; line-height: 24px; }
+    .prop-city { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; color: #616f86; line-height: 24px; }
+    .prop-price-sm { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; color: #616f86; line-height: 24px; }
+    .promoted-label { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 16px; color: #181c24; line-height: 24px; }
+    .promoted-sub { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; color: #616f86; line-height: 24px; }
+    .promote-btn { border: 2px solid #4052a2; border-radius: 8px; padding: 12px 24px; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; color: #4052a2; background: none; cursor: pointer; white-space: nowrap; }
+    .unavailable-wrap { display: flex; align-items: center; gap: 4px; }
+    .unavailable-label { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; color: #616f86; }
+    .price-col { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; color: #616f86; line-height: 24px; }
+    .date-primary { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; color: #181c24; line-height: 24px; }
+    .date-ago { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; color: #616f86; line-height: 24px; }
+    .status-badge { display: inline-flex; align-items: center; justify-content: center; padding: 4px 12px; border-radius: 100px; font-family: 'Rubik', sans-serif; font-weight: 500; font-size: 14px; color: white; background: #007a78; }
+  </style>
+</head>
+<body>
+
+<!-- TOP HAT -->
+<div class="tophat">
+  <div class="tophat-links">
+    <a href="#">Go to realtor.com</a><span class="sep">|</span>
+    <a href="#">Homepage</a><span class="sep">|</span>
+    <a href="#">Your profile</a><span class="sep">|</span>
+    <a href="#">Your listings</a>
+  </div>
+  <span class="tophat-right">Purchase products</span>
+</div>
+
+<!-- MAIN HEADER -->
+<div class="main-header">
+  <div class="logo">
+    <img src="https://www.figma.com/api/mcp/asset/83386cc7-5d8b-4ef7-824c-69d50391d3c8" alt="realtor.com for Professionals">
+  </div>
+  <div class="profile-area">
+    <div class="welcome-block">
+      <span class="w1">Welcome</span>
+      <span class="w2">Kelly</span>
+    </div>
+    <div class="avatar-group">
+      <img class="avatar-photo" src="https://www.figma.com/api/mcp/asset/734bd74b-97db-4a7f-b3ea-d41440df8dab" alt="Kelly">
+      <div class="avatar-arrow">▾</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="nav-item"><a class="nav-home" href="index.html">Home</a></div>
+    <div class="nav-divider"></div>
+    <div class="nav-item"><span class="nav-label">Contacts</span></div>
+    <div class="nav-item"><span class="nav-label">Tasks</span></div>
+    <div class="nav-divider"></div>
+    <div class="nav-item"><span class="nav-label">Seller Leads</span></div>
+    <div class="nav-item"><span class="nav-active">Listings and Promotions</span></div>
+    <div class="nav-divider"></div>
+    <div class="nav-item"><span class="nav-label">Profile</span><span class="nav-chev">‹</span></div>
+    <div class="nav-item"><span class="nav-label">Performance</span><span class="nav-chev">‹</span></div>
+    <div class="nav-item"><span class="nav-label">My Team</span><span class="nav-chev">‹</span></div>
+    <div class="nav-divider"></div>
+    <div class="nav-item"><span class="nav-label">Purchase Products</span></div>
+    <div class="nav-item"><span class="nav-label">My Products</span></div>
+    <div class="nav-item"><span class="nav-label">Billing</span><span class="nav-chev">‹</span></div>
+    <div class="nav-item"><span class="nav-label">Help</span><span class="nav-chev">‹</span></div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ROW 1: Team promotions + Spotlight promo -->
+    <div class="two-col">
+
+      <!-- Team promotions -->
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div class="card-title">Team promotions</div>
+          <div class="card-subtitle">Your team lead can promote listings on your behalf using shared team inventory. Reach out to your team in order to get a listing promoted.</div>
+          <div class="agent-card">
+            <div class="agent-av-wrap">
+              <div class="agent-av-fallback">
+                SL
+                <div class="team-lead-badge">Team lead</div>
+              </div>
+            </div>
+            <div>
+              <div class="agent-name">Samantha M. Lee</div>
+              <div class="agent-company">Keller Williams Realty</div>
+              <a class="agent-email" href="#">samantha.lee@kellerwilliams.com</a>
+            </div>
+          </div>
+        </div>
+        <div class="text-btn">
+          <span>Download listing presentation</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v13M6 11l6 6 6-6M4 20h16" stroke="#4052a2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Spotlight promo -->
+      <div class="card" style="display:flex; flex-direction:column; gap:32px; align-items:center;">
+        <div style="display:flex; justify-content:center; width:100%;">
+          <div style="width:142px; height:110px; background:#dde8ff; border-radius:8px; display:flex; align-items:center; justify-content:center;">
+            <svg width="90" height="72" viewBox="0 0 90 72" fill="none">
+              <rect width="90" height="72" rx="6" fill="#c5d0f5"/>
+              <rect x="6" y="6" width="78" height="36" rx="4" fill="#a0b0ee"/>
+              <rect x="6" y="48" width="50" height="8" rx="3" fill="#8090e0"/>
+              <rect x="6" y="60" width="78" height="6" rx="3" fill="#c5d0f5"/>
+              <circle cx="76" cy="18" r="8" fill="#4052a2" opacity="0.7"/>
+              <path d="M73 18l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div style="width:100%;">
+          <div class="card-title">Spotlight Listings: Get Noticed. Get Results.</div>
+          <div class="card-subtitle"><strong style="color:#181c24; font-weight:700;">Promote</strong> in the Promotions column of your listing dashboard today! Want to promote multiple listings?</div>
+        </div>
+        <div class="text-btn" style="align-self:flex-end;">
+          <span>Explore package options</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="#4052a2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: Performance overview -->
+    <div class="card">
+      <div class="card-title">Performance overview</div>
+      <div class="card-subtitle">These metrics highlight the performance of your Spotlight Listings using engagement and visibility data.</div>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-big">44%</div>
+          <div class="stat-label">of your listings are currently Promoted listings</div>
+          <div class="stat-sub">11 total listings</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-big">202%</div>
+          <div class="stat-label">more search result impressions than non-promoted listings</div>
+          <div class="stat-sub">33,744 total listings</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-big">129%</div>
+          <div class="stat-label">more listing page views than non-promoted listings</div>
+          <div class="stat-sub">429 listing page views</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3: Listings table -->
+    <div class="card">
+      <div class="card-title">Listings</div>
+      <div class="listings-controls">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="7" cy="7" r="5" stroke="#48566c" stroke-width="1.5"/>
+            <path d="M11 11l3 3" stroke="#48566c" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input type="text" placeholder="Search by address or MLS" readonly>
+        </div>
+        <div class="toggle-box">
+          <span>Show 2 duplicate listings</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="7" stroke="#616f86" stroke-width="1.5"/>
+            <path d="M8 7v3M8 5.5v.01" stroke="#616f86" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <div class="toggle-switch"><div class="toggle-switch-knob"></div></div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs" style="margin-bottom:0;">
+        <div class="tab active">For Sale (5)</div>
+        <div class="tab">For Rent (2)</div>
+        <div class="tab">Sold (2)</div>
+      </div>
+
+      <!-- Table header -->
+      <div class="table-header" style="margin-top:16px;">
+        <div class="th">Property
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M3 7l3 3 3-3" stroke="#181c24" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="th">Promotions
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M3 7l3 3 3-3" stroke="#181c24" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="th">Price
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M3 7l3 3 3-3" stroke="#181c24" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="th">List date
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M3 7l3 3 3-3" stroke="#181c24" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="th">Listing status</div>
+      </div>
+
+      <!-- Row 1: Promoted -->
+      <div class="table-row">
+        <div class="prop-info">
+          <img class="prop-img" src="https://www.figma.com/api/mcp/asset/790be7bb-036e-4525-9940-b6e5d62f81db" alt="123 South Main St">
+          <div>
+            <div class="prop-address">123 South Main St</div>
+            <div class="prop-city">Austin, TX 78731</div>
+          </div>
+        </div>
+        <div>
+          <div class="promoted-label">Promoted</div>
+          <div class="promoted-sub">until Aug 10</div>
+        </div>
+        <div class="price-col">$1,565,000</div>
+        <div><div class="date-primary">Feb 26</div><div class="date-ago">1 day ago</div></div>
+        <div><span class="status-badge">Active</span></div>
+      </div>
+
+      <!-- Row 2: Promote button -->
+      <div class="table-row">
+        <div class="prop-info">
+          <img class="prop-img" src="https://www.figma.com/api/mcp/asset/4ecbc1a6-7b12-4f99-b761-f962501d5391" alt="400 NW 16th Ave">
+          <div>
+            <div class="prop-address">400 NW 16th Ave</div>
+            <div class="prop-city">Austin, TX 78704</div>
+            <div class="prop-price-sm">$565,000</div>
+          </div>
+        </div>
+        <div><button class="promote-btn">Promote</button></div>
+        <div class="price-col">$1,565,000</div>
+        <div><div class="date-primary">Feb 26</div><div class="date-ago">1 day ago</div></div>
+        <div><span class="status-badge">Active</span></div>
+      </div>
+
+      <!-- Row 3: Promote button -->
+      <div class="table-row">
+        <div class="prop-info">
+          <img class="prop-img" src="https://www.figma.com/api/mcp/asset/87609c4c-b2cf-459f-aee8-9a9ab3b207a6" alt="2125 Green Tree St">
+          <div>
+            <div class="prop-address">2125 Green Tree St Apt 1</div>
+            <div class="prop-city">Austin, TX 78702</div>
+            <div class="prop-price-sm">$488,000</div>
+          </div>
+        </div>
+        <div><button class="promote-btn">Promote</button></div>
+        <div class="price-col">$1,565,000</div>
+        <div><div class="date-primary">Feb 26</div><div class="date-ago">1 day ago</div></div>
+        <div><span class="status-badge">Active</span></div>
+      </div>
+
+      <!-- Row 4: Unavailable -->
+      <div class="table-row">
+        <div class="prop-info">
+          <img class="prop-img" src="https://www.figma.com/api/mcp/asset/39905d81-bbd7-41ca-94a0-fe32a5edc032" alt="4560 Southwest Hillcres">
+          <div>
+            <div class="prop-address">4560 Southwest Hillcres...</div>
+            <div class="prop-city">Austin, TX 78731</div>
+            <div class="prop-price-sm">$495,000</div>
+          </div>
+        </div>
+        <div>
+          <div class="unavailable-wrap">
+            <span class="unavailable-label">Unavailable</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="7" stroke="#616f86" stroke-width="1.5"/>
+              <path d="M8 7v3M8 5.5v.01" stroke="#616f86" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="price-col">$1,565,000</div>
+        <div><div class="date-primary">Feb 26</div><div class="date-ago">1 day ago</div></div>
+        <div><span class="status-badge">Active</span></div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
