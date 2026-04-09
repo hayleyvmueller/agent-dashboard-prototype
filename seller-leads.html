@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>RealPro Select Seller Leads – realtor.com for Professionals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f8f8f9; min-width: 1440px; font-family: 'Roboto', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* TOP HAT */
+    .tophat { height: 30px; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; flex-shrink: 0; }
+    .tophat a { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 12px; color: rgba(255,255,255,0.8); text-decoration: none; }
+    .tophat .sep { color: rgba(255,255,255,0.4); margin: 0 8px; font-size: 12px; }
+    .tophat-links { display: flex; align-items: center; }
+    .tophat-right { font-family: 'Roboto', sans-serif; font-weight: 300; font-size: 12px; color: rgba(255,255,255,0.8); }
+
+    /* MAIN HEADER */
+    .main-header { height: 68px; background: white; border-top: 4px solid #6677d0; border-bottom: 1px solid rgba(0,0,0,0.2); display: flex; align-items: center; padding: 0 23px 0 10px; flex-shrink: 0; }
+    .logo img { height: 63px; width: auto; }
+    .logo { flex: 1; }
+    .profile-area { display: flex; align-items: center; gap: 8px; }
+    .welcome-block { text-align: right; }
+    .welcome-block .w1 { display: block; font-size: 14px; font-weight: 300; color: black; opacity: 0.9; }
+    .welcome-block .w2 { display: block; font-size: 14px; font-weight: 400; color: black; opacity: 0.9; margin-top: 4px; }
+    .avatar-group { display: flex; }
+    .avatar-photo { width: 40px; height: 40px; object-fit: cover; border: 1px solid rgba(0,0,0,0.1); display: block; }
+    .avatar-arrow { width: 20px; height: 40px; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 11px; color: #666; }
+
+    /* CONTENT AREA */
+    .content-area { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 48px 0 120px; }
+
+    /* PROGRESS INDICATOR */
+    .progress-wrap { width: 734px; margin-bottom: 24px; }
+    .progress-label { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 14px; line-height: 20px; color: #181c24; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .progress-step { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 14px; color: #181c24; }
+    .progress-name { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 14px; color: #181c24; }
+    .progress-bar-track { height: 6px; background: #e3e6e9; border-radius: 3px; width: 100%; }
+    .progress-bar-fill { height: 6px; background: #181c24; border-radius: 3px; width: 33.33%; }
+
+    /* CARD */
+    .card { width: 734px; background: white; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .card-heading { display: flex; flex-direction: column; gap: 4px; }
+    .card-title { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 20px; line-height: 28px; color: #181c24; }
+    .card-sub { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 14px; line-height: 24px; color: #181c24; }
+
+    /* PROFILE ROW */
+    .profile-list { display: flex; flex-direction: column; gap: 16px; }
+    .profile-row { border: 1px solid #b9bfc9; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: border-color 0.15s; }
+    .profile-row:hover { border-color: #4052a2; }
+    .profile-row.selected { border: 2px solid #4052a2; }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; background: #e3e6e9; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .avatar svg { width: 32px; height: 32px; }
+    .profile-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .profile-name-row { font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; color: #181c24; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+    .profile-email { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #181c24; }
+    .profile-meta { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #616f86; }
+    .profile-state { font-family: 'Rubik', sans-serif; font-weight: 500; font-size: 16px; line-height: 24px; color: #616f86; white-space: nowrap; margin-left: auto; align-self: flex-start; }
+
+    /* FOOTER */
+    .footer { position: fixed; bottom: 0; left: 0; right: 0; height: 97px; background: white; border-top: 1px solid #e3e6e9; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; z-index: 10; }
+    .footer-help { display: flex; align-items: center; gap: 10px; }
+    .help-icon-wrap { background: #eef1fc; border-radius: 36px; padding: 12px; display: flex; align-items: center; justify-content: center; }
+    .help-icon-wrap svg { width: 24px; height: 24px; }
+    .help-text { display: flex; flex-direction: column; gap: 2px; }
+    .help-title { font-family: 'Rubik', sans-serif; font-weight: 600; font-size: 16px; line-height: 24px; color: #181c24; white-space: nowrap; }
+    .help-links { display: flex; align-items: center; gap: 24px; }
+    .help-link { font-family: 'Rubik', sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: #4052a2; text-decoration: underline; white-space: nowrap; }
+    .footer-actions { display: flex; align-items: center; gap: 16px; }
+    .cancel-link { font-family: 'Rubik', sans-serif; font-weight: 500; font-size: 16px; line-height: 24px; color: #4052a2; text-decoration: underline; cursor: pointer; }
+    .back-btn { border: 2px solid #4052a2; color: #4052a2; background: white; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; padding: 12px 24px; border-radius: 8px; cursor: pointer; height: 48px; display: flex; align-items: center; }
+    .next-btn { background: #e3e6e9; color: #b9bfc9; border: none; font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 16px; padding: 12px 24px; border-radius: 8px; height: 48px; display: flex; align-items: center; cursor: not-allowed; }
+    .next-btn.active { background: #4052a2; color: white; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<!-- TOP HAT -->
+<div class="tophat">
+  <div class="tophat-links">
+    <a href="#">Go to realtor.com</a><span class="sep">|</span>
+    <a href="#">Homepage</a><span class="sep">|</span>
+    <a href="#">Your profile</a><span class="sep">|</span>
+    <a href="#">Your listings</a>
+  </div>
+  <span class="tophat-right">Purchase products</span>
+</div>
+
+<!-- MAIN HEADER -->
+<div class="main-header">
+  <div class="logo">
+    <img src="https://www.figma.com/api/mcp/asset/83386cc7-5d8b-4ef7-824c-69d50391d3c8" alt="realtor.com for Professionals">
+  </div>
+  <div class="profile-area">
+    <div class="welcome-block">
+      <span class="w1">Welcome</span>
+      <span class="w2">Kelly</span>
+    </div>
+    <div class="avatar-group">
+      <img class="avatar-photo" src="https://www.figma.com/api/mcp/asset/734bd74b-97db-4a7f-b3ea-d41440df8dab" alt="Kelly">
+      <div class="avatar-arrow">▾</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT AREA -->
+<div class="content-area">
+
+  <!-- PROGRESS INDICATOR -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span class="progress-step">Step 1 of 3:</span>
+      <span class="progress-name">Select profile</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- CARD -->
+  <div class="card">
+    <div class="card-heading">
+      <div class="card-title">Select the profile you would like to connect to RealPro Select Seller Leads</div>
+      <div class="card-sub">You can update your info on the next page</div>
+    </div>
+
+    <div class="profile-list">
+
+      <!-- Profile 1 -->
+      <div class="profile-row" onclick="selectProfile(this)">
+        <div class="avatar">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="12" r="5" fill="#9aa0ad"/>
+            <path d="M6 26c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#9aa0ad" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="profile-info">
+          <div class="profile-name-row">
+            <span>Anna Smith</span>
+            <span class="profile-email">annamariesmith@kellerwilliams.com</span>
+          </div>
+          <div class="profile-meta">MLS: 928029380956 &nbsp;| License: #92HGF2</div>
+        </div>
+        <div class="profile-state">Florida (FL)</div>
+      </div>
+
+      <!-- Profile 2 -->
+      <div class="profile-row" onclick="selectProfile(this)">
+        <div class="avatar">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="12" r="5" fill="#9aa0ad"/>
+            <path d="M6 26c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#9aa0ad" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="profile-info">
+          <div class="profile-name-row">
+            <span>Anna Marie Smith</span>
+            <span class="profile-email">ams@kellerwilliams.com</span>
+          </div>
+          <div class="profile-meta">MLS: 928029380956 &nbsp;| License: #92HGF2</div>
+        </div>
+        <div class="profile-state">Florida (FL)</div>
+      </div>
+
+      <!-- Profile 3 -->
+      <div class="profile-row" onclick="selectProfile(this)">
+        <div class="avatar">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="12" r="5" fill="#9aa0ad"/>
+            <path d="M6 26c0-5.523 4.477-10 10-10s10 4.477 10 10" stroke="#9aa0ad" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="profile-info">
+          <div class="profile-name-row">
+            <span>Anna Marie Smith</span>
+            <span class="profile-email">annamariesmith@kellerwilliams.com</span>
+          </div>
+          <div class="profile-meta">MLS: 928029380956 &nbsp;| License: #92HGF2</div>
+        </div>
+        <div class="profile-state">Georgia (GA)</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-help">
+    <div class="help-icon-wrap">
+      <!-- Phone volume icon -->
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.36 11.36 0 003.56.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z" fill="#4052a2"/>
+        <path d="M15 7a2 2 0 012 2" stroke="#4052a2" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M15 3a6 6 0 016 6" stroke="#4052a2" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="help-text">
+      <div class="help-title">Need help? Contact us</div>
+      <div class="help-links">
+        <a class="help-link" href="tel:8002407196">800-240-7196</a>
+        <a class="help-link" href="mailto:realproselectsellerleads@realtor.com">realproselectsellerleads@realtor.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-actions">
+    <span class="cancel-link" onclick="window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/index.html'">Cancel</span>
+    <button class="back-btn" onclick="window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/index.html'">Back</button>
+    <button class="next-btn" id="next-btn">Next</button>
+  </div>
+</div>
+
+<script>
+  function selectProfile(el) {
+    document.querySelectorAll('.profile-row').forEach(function(r) { r.classList.remove('selected'); });
+    el.classList.add('selected');
+    document.getElementById('next-btn').classList.add('active');
+  }
+</script>
+</body>
+</html>
