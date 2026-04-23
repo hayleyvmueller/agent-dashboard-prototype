@@ -565,11 +565,11 @@
 </div>
 
 <!-- MODAL: RealPro Select Seller Leads (step 2 "Complete setup") -->
-<div class="modal-overlay hidden" id="modal-seller-leads" onclick="if(event.target===this)closeModal('modal-seller-leads')">
+<div class="modal-overlay hidden" id="modal-seller-leads" onclick="if(event.target===this){ pendingStep=null; closeModal('modal-seller-leads'); }">
   <div class="modal-box">
     <div class="modal-hdr">
       <div class="modal-title">RealPro Select Seller Leads</div>
-      <button class="modal-close" onclick="closeModal('modal-seller-leads')" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:16px;height:16px;flex-shrink:0;margin-top:8px;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1l12 12" stroke="#181c24" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <button class="modal-close" onclick="pendingStep=null; closeModal('modal-seller-leads')" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:16px;height:16px;flex-shrink:0;margin-top:8px;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1l12 12" stroke="#181c24" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     </div>
     <div class="modal-invite">
       You've been invited to <b>RealPro Select Seller Leads.</b>
@@ -581,7 +581,7 @@
       With features like exclusive seller leads, advanced filtering, and priority routing, you'll spend less time prospecting and more time closing.
     </div>
     <div class="modal-btns">
-      <button class="outline-btn" onclick="closeModal('modal-seller-leads')">Decline invitation</button>
+      <button class="outline-btn" onclick="pendingStep=null; closeModal('modal-seller-leads')">Decline invitation</button>
       <button class="fill-btn" onclick="closeModal('modal-seller-leads'); setTimeout(function(){ window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/seller-leads.html'; }, 150)">Get started</button>
     </div>
   </div>
@@ -684,7 +684,9 @@
 
   function showModal(modalId, stepNum) {
     document.getElementById(modalId).classList.remove('hidden');
-    if (stepNum) {
+    pendingStep = stepNum || null;
+    // Steps 1, 3, 4 complete immediately on open; step 2 only completes on CTA click
+    if (stepNum && stepNum !== 2) {
       var btn = document.getElementById('step-btn-' + stepNum);
       if (btn && completedHTML[stepNum]) {
         btn.outerHTML = completedHTML[stepNum];
@@ -693,8 +695,8 @@
           setTimeout(markAllComplete, 300);
         }
       }
+      pendingStep = null;
     }
-    pendingStep = null;
   }
 
   function acceptTeamInvite() {
