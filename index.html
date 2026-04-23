@@ -683,8 +683,18 @@
   }
 
   function showModal(modalId, stepNum) {
-    pendingStep = stepNum || null;
     document.getElementById(modalId).classList.remove('hidden');
+    if (stepNum) {
+      var btn = document.getElementById('step-btn-' + stepNum);
+      if (btn && completedHTML[stepNum]) {
+        btn.outerHTML = completedHTML[stepNum];
+        completedCount++;
+        if (completedCount >= 4) {
+          setTimeout(markAllComplete, 300);
+        }
+      }
+    }
+    pendingStep = null;
   }
 
   function acceptTeamInvite() {
