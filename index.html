@@ -675,7 +675,7 @@
   function showModal(modalId, stepNum) {
     document.getElementById(modalId).classList.remove('hidden');
     pendingStep = stepNum || null;
-    // Steps 1, 3, 4 complete immediately on open; step 2 only completes on CTA click
+    // Steps 1 and 3 complete immediately on open; step 2 only completes on CTA click
     if (stepNum && stepNum !== 2) {
       var btn = document.getElementById('step-btn-' + stepNum);
       if (btn && completedHTML[stepNum]) {
