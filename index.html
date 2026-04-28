@@ -543,21 +543,42 @@
 <!-- MODAL: Spotlight Listings for Teams (step 1 "Get started") -->
 <div class="modal-overlay hidden" id="modal-spotlight" onclick="if(event.target===this)closeModal('modal-spotlight')">
   <div class="modal-box" style="align-items: flex-end;">
-    <button class="modal-close" onclick="closeModal('modal-spotlight')" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:16px;height:16px;flex-shrink:0;margin-top:8px;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1l12 12" stroke="#181c24" stroke-width="1.5" stroke-linecap="round"/></svg></button>
-    <div class="modal-title" style="width: 100%; text-align: center;">Spotlight Listings for Teams</div>
-    <div class="modal-body" style="width: 100%;">
-      Win more business with premium property placement. Your team has access to Spotlight Listings to help your brand stand out and provide sellers with the data they need.
+    <button class="modal-close" onclick="closeModal('modal-spotlight')" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:16px;height:16px;flex-shrink:0;margin-top:8px; align-self:flex-end;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1l12 12" stroke="#181c24" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+    <div style="width:100%;display:flex;justify-content:center;">
+      <div style="width:183px;height:142px;position:relative;display:flex;align-items:flex-end;justify-content:center;">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle,#e8ecf8 0%,#f0f2fb 50%,transparent 75%);border-radius:50%;"></div>
+        <div style="position:relative;background:white;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,0.15);width:139px;margin-bottom:8px;overflow:hidden;">
+          <div style="height:72px;background:linear-gradient(135deg,#b8c8a0 0%,#8aaa70 50%,#6b9050 100%);position:relative;">
+            <div style="position:absolute;top:6px;left:6px;background:#4052a2;color:white;font-family:'Rubik',sans-serif;font-size:7px;font-weight:700;padding:2px 6px;border-radius:3px;display:flex;align-items:center;gap:3px;">
+              <svg width="7" height="7" viewBox="0 0 10 13" fill="white"><path d="M5 0L6.8 4.5H11L7.6 7.3L8.9 12L5 9.2L1.1 12L2.4 7.3L-1 4.5H3.2L5 0Z"/></svg>
+              Spotlight
+            </div>
+          </div>
+          <div style="padding:4px 5px 5px;background:white;">
+            <div style="font-family:'Rubik',sans-serif;font-size:7px;font-weight:600;color:#2b2b2b;margin-bottom:2px;">$865,000</div>
+            <div style="font-family:'Rubik',sans-serif;font-size:5px;color:#616f86;">3 bed &nbsp;·&nbsp; 1.5 bath &nbsp;·&nbsp; 1,580 sqft</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div style="width: 100%;">
-      <ul style="list-style: disc; padding-left: 24px; margin: 0; display: flex; flex-direction: column; gap: 4px; font-family: 'Rubik', sans-serif; font-size: 16px; line-height: 24px; color: #616f86;">
-        <li><b style="color: #181c24; font-weight: 700;">Maximum visibility</b> in top spots on Realtor.com</li>
-        <li><b style="color: #181c24; font-weight: 700;">Branded promotion</b> that highlights your team's expertise</li>
-        <li><b style="color: #181c24; font-weight: 700;">Actionable insight</b> to prove your value to sellers</li>
-        <li><b style="color: #181c24; font-weight: 700;">No extra setup</b> - promotions are managed by your team. Reach out to them to learn about promoting your listing</li>
+    <div class="modal-title" style="width:100%;text-align:center;">Spotlight Listings for Teams</div>
+    <div class="modal-body" style="width:100%;">
+      Your team now has access to Spotlight Listings on <a href="http://realtor.com/" target="_blank" style="color:#4052a2;">Realtor.com</a>. These listing promotions secure premium visibility on the first pages of search results to command the attention of active buyers and provide a distinct competitive advantage when winning over new sellers.
+    </div>
+    <div style="width:100%;">
+      <ul style="list-style:disc;padding-left:24px;margin:0;display:flex;flex-direction:column;gap:4px;font-family:'Rubik',sans-serif;font-size:16px;line-height:24px;color:#616f86;">
+        <li><b style="color:#181c24;font-weight:700;">Double visibility*</b> with premium listing placement</li>
+        <li><b style="color:#181c24;font-weight:700;">Enhanced visuals and branding</b> to drive more clicks and engagement</li>
+        <li><b style="color:#181c24;font-weight:700;">Seller-ready insights</b> showing how your listing performed compared to similar homes.</li>
+        <li><b style="color:#181c24;font-weight:700;">Managed by your team</b> who can promote a listing on your behalf</li>
       </ul>
-      <p class="modal-body" style="margin-top: 16px;">Download our professional listing presentation to show potential clients exactly how you'll sell their home.</p>
+      <p class="modal-body" style="margin-top:16px;">Download the listing presentation to show sellers exactly what Spotlight Listings delivers.</p>
     </div>
-    <a class="modal-dl-link" href="listing-presentation.pdf" target="_blank" rel="noopener" style="width: 100%;">Download the listing presentation</a>
+    <div style="display:flex;gap:32px;align-items:center;width:100%;">
+      <a class="modal-dl-link" href="listing-presentation.pdf" target="_blank" rel="noopener">Download one-pager</a>
+      <a class="modal-dl-link" href="listing-presentation.pdf" target="_blank" rel="noopener">Download slides</a>
+    </div>
+    <p style="font-family:'Rubik',sans-serif;font-size:10px;line-height:18px;color:#616f86;width:100%;margin:0;">*Based on realtor.com internal data (Jan 1–Mar 25, 2025), Listing Promotions delivered 2x more search impressions and views compared to similar, non-promoted listings.</p>
     <div class="modal-btns">
       <button class="fill-btn" onclick="closeModal('modal-spotlight'); setTimeout(function(){ window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/listings.html'; }, 150)">Go to listings</button>
     </div>
