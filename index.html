@@ -313,21 +313,21 @@
             <div class="ob-title-row"><span class="ob-item-title">Boost your listing visibility</span></div>
             <div class="ob-desc">Spotlight Listings for Teams puts your listings front and center with elevated search placement.</div>
           </div>
-          <button class="outline-btn" id="step-btn-1" onclick="showModal('modal-spotlight', 1)">Get started</button>
+          <button class="outline-btn" id="step-btn-1" onclick="showModal('modal-spotlight')">Get started</button>
         </div>
         <div class="ob-item">
           <div class="ob-body">
             <div class="ob-title-row"><span class="ob-item-title">Source exclusive seller leads</span></div>
             <div class="ob-desc">RealPro Select Seller Leads™️ connects you with high-intent seller leads sourced directly from Realtor.com.</div>
           </div>
-          <button class="outline-btn" id="step-btn-2" onclick="showModal('modal-seller-leads', 2)">Complete setup</button>
+          <button class="outline-btn" id="step-btn-2" onclick="showModal('modal-seller-leads')">Complete setup</button>
         </div>
         <div class="ob-item">
           <div class="ob-body">
             <div class="ob-title-row"><span class="ob-item-title">Claim your share of buyer demand</span></div>
             <div class="ob-desc">Market VIP️ connects you with high-intent buyers actively searching in your market.</div>
           </div>
-          <button class="outline-btn" id="step-btn-3" onclick="showModal('modal-market-vip', 3)">Get the app</button>
+          <button class="outline-btn" id="step-btn-3" onclick="showModal('modal-market-vip')">Get the app</button>
         </div>
       </div>
     </div>
@@ -573,17 +573,17 @@
     </div>
     <p style="font-family:'Rubik',sans-serif;font-size:10px;line-height:18px;color:#616f86;width:100%;margin:0;">*Based on realtor.com internal data (Jan 1–Mar 25, 2025), Listing Promotions delivered 2x more search impressions and views compared to similar, non-promoted listings.</p>
     <div class="modal-btns">
-      <button class="fill-btn" onclick="closeModal('modal-spotlight'); setTimeout(function(){ window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/listings.html'; }, 150)">Go to listings</button>
+      <button class="fill-btn" onclick="completeStep(1); closeModal('modal-spotlight'); setTimeout(function(){ window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/listings.html'; }, 150)">Go to listings</button>
     </div>
   </div>
 </div>
 
 <!-- MODAL: RealPro Select Seller Leads (step 2 "Complete setup") -->
-<div class="modal-overlay hidden" id="modal-seller-leads" onclick="if(event.target===this){ pendingStep=null; closeModal('modal-seller-leads'); }">
+<div class="modal-overlay hidden" id="modal-seller-leads" onclick="if(event.target===this)closeModal('modal-seller-leads')">
   <div class="modal-box">
     <div class="modal-hdr">
       <div class="modal-title">RealPro Select Seller Leads</div>
-      <button class="modal-close" onclick="pendingStep=null; closeModal('modal-seller-leads')" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:16px;height:16px;flex-shrink:0;margin-top:8px;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1l12 12" stroke="#181c24" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <button class="modal-close" onclick="closeModal('modal-seller-leads')" style="background:none;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:16px;height:16px;flex-shrink:0;margin-top:8px;"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 1L1 13M1 1l12 12" stroke="#181c24" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     </div>
     <div class="modal-invite">
       You've been invited to <b>RealPro Select Seller Leads.</b>
@@ -595,8 +595,8 @@
       With features like exclusive seller leads, advanced filtering, and priority routing, you'll spend less time prospecting and more time closing.
     </div>
     <div class="modal-btns">
-      <button class="outline-btn" onclick="var b=document.getElementById('step-btn-2');if(b)b.outerHTML=declinedState;pendingStep=null;closeModal('modal-seller-leads')">Decline invitation</button>
-      <button class="fill-btn" onclick="closeModal('modal-seller-leads'); setTimeout(function(){ window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/seller-leads.html'; }, 150)">Get started</button>
+      <button class="outline-btn" onclick="var b=document.getElementById('step-btn-2');if(b)b.outerHTML=declinedState;closeModal('modal-seller-leads')">Decline invitation</button>
+      <button class="fill-btn" onclick="completeStep(2); closeModal('modal-seller-leads'); setTimeout(function(){ window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/seller-leads.html'; }, 150)">Get started</button>
     </div>
   </div>
 </div>
@@ -622,7 +622,7 @@
       </div>
     </div>
     <div class="modal-btns">
-      <button class="fill-btn" onclick="closeModal('modal-market-vip')">Complete step</button>
+      <button class="fill-btn" onclick="completeStep(3); closeModal('modal-market-vip')">Complete step</button>
     </div>
   </div>
 </div>
@@ -632,7 +632,6 @@
 <button class="restart-btn" onclick="location.reload()" title="Restart prototype">↺ Restart</button>
 
 <script>
-  var pendingStep = null;
   var completedCount = 0;
   var savedOnboardingHTML = (function() { var c = document.querySelector('.onboarding'); return c ? c.innerHTML : null; })();
 
@@ -672,20 +671,18 @@
     }
   }
 
-  function showModal(modalId, stepNum) {
+  function showModal(modalId) {
     document.getElementById(modalId).classList.remove('hidden');
-    pendingStep = stepNum || null;
-    // Steps 1 and 3 complete immediately on open; step 2 only completes on CTA click
-    if (stepNum && stepNum !== 2) {
-      var btn = document.getElementById('step-btn-' + stepNum);
-      if (btn && completedHTML[stepNum]) {
-        btn.outerHTML = completedHTML[stepNum];
-        completedCount++;
-        if (completedCount >= 3) {
-          setTimeout(markAllComplete, 300);
-        }
+  }
+
+  function completeStep(stepNum) {
+    var btn = document.getElementById('step-btn-' + stepNum);
+    if (btn && completedHTML[stepNum]) {
+      btn.outerHTML = completedHTML[stepNum];
+      completedCount++;
+      if (completedCount >= 3) {
+        setTimeout(markAllComplete, 300);
       }
-      pendingStep = null;
     }
   }
 
@@ -714,17 +711,6 @@
 
   function closeModal(modalId) {
     document.getElementById(modalId).classList.add('hidden');
-    if (pendingStep !== null) {
-      var btn = document.getElementById('step-btn-' + pendingStep);
-      if (btn && completedHTML[pendingStep]) {
-        btn.outerHTML = completedHTML[pendingStep];
-        completedCount++;
-        if (completedCount >= 3) {
-          setTimeout(markAllComplete, 300);
-        }
-      }
-      pendingStep = null;
-    }
   }
 
   function markAllComplete() {
