@@ -602,7 +602,7 @@
       With features like exclusive seller leads, advanced filtering, and priority routing, you'll spend less time prospecting and more time closing.
     </div>
     <div class="modal-btns">
-      <button class="outline-btn" onclick="pendingStep=null; closeModal('modal-seller-leads')">Decline invitation</button>
+      <button class="outline-btn" onclick="var b=document.getElementById('step-btn-2');if(b)b.outerHTML=declinedState;pendingStep=null;closeModal('modal-seller-leads')">Decline invitation</button>
       <button class="fill-btn" onclick="closeModal('modal-seller-leads'); setTimeout(function(){ window.location.href='https://hayleyvmueller.github.io/agent-dashboard-prototype/seller-leads.html'; }, 150)">Get started</button>
     </div>
   </div>
@@ -667,6 +667,8 @@
   var pendingStep = null;
   var completedCount = 0;
   var savedOnboardingHTML = (function() { var c = document.querySelector('.onboarding'); return c ? c.innerHTML : null; })();
+
+  var declinedState = '<span style="font-family:\'Rubik\',sans-serif;font-weight:500;font-size:18px;line-height:24px;color:#616f86;white-space:nowrap;flex-shrink:0;">Declined invitation</span>';
 
   var completedState = '<div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">' +
     '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
